@@ -14,7 +14,7 @@
                             <label>Add Role Permission</label>
                             @foreach ($permissions as $permission)
                                 <div class="form-check">
-                                    <input type="checkbox" value="{{ $permission->name}}" name="permission[]" class="form-check-input" id="permission-{{ $permission->name }}">
+                                    <input type="checkbox" value="{{ $permission->name}}" name="permission[]" class="form-check-input" id="permission-{{ $permission->name }}" {{ in_array($permission->name, $role->permissions->pluck('name')->toArray()) ? 'checked' : ''}}>
                                     <label class="form-check-label" for="permission-{{ $permission->name }}">
                                         {{ $permission->name }}
                                     </label>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web\Backend;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
 use Spatie\Permission\Models\Permission;
@@ -70,7 +71,8 @@ class RoleController extends Controller
     public function addPermissionToRole($roleId){
         $role = Role::findOrFail($roleId);
         $permissions = Permission::all();
-        return view('backend.layout.role-permissions.role.add_permission', compact('role', 'permissions'));
+        $rolePermission = DB::table('role_has_permissions')->where('role_id',$roleId)->pluck('permission_id')->all();
+        return view('backend.layout.role-permissions.role.add_permission', compact('role', 'permissions' ,'rolePermission'));
     }
     public function givePermissionToRole(Request $request, $roleId){
 
